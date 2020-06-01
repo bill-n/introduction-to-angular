@@ -16,7 +16,7 @@ app.use(
   })
 );
 
-app.use(express.static(__dirname + "/dist/Holiday-Me"));
+app.use(express.static(__dirname + "/dist/introduction-to-angular/"));
 
 app.get("/*", function(req, res) {
 //   res.cookie("holiday_request_service_url", process.env.HOLIDAY_REQUESTS_SERVICE_URL);
