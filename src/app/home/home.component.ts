@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { AngularService } from '../services/angular.service';
+import { AngularService } from '../service/angular.service';
+
 
 @Component({
   selector: 'app-home',
@@ -13,40 +13,23 @@ export class HomeComponent implements OnInit {
   genders = ['male', 'female'];
   signup: FormGroup
   loadedPosts = [];
-  constructor(private http: HttpClient, private angularservice: AngularService) { }
+  constructor(private angularservice: AngularService) { }
  
-
-  
   ngOnInit(): void {
     this.signup = new FormGroup({
-      Username: new FormControl(null,Validators.required),    //:default name, validators
-      email: new FormControl(null,[Validators.required, Validators.email]),
-      gender: new FormControl('male')
+      'Username': new FormControl(null,Validators.required),   
+      'email': new FormControl(null,[Validators.required, Validators.email]),
+      'gender': new FormControl('male')
     })
 
    
   }
-  getttingPost(){
-    this.angularservice.getPost().subscribe(posts => {
-      this.loadedPosts = posts;
-      console.log(posts)
-    });
-  }
+   
+
 
   onSubmit(){
     var info = this.signup.value
-    this.angularservice.sendPost(info)
-    .subscribe((response) =>{console.log('response',response)})
-    this.signup.reset()
-    
-        
-    }
+    this.angularservice.sendData(info).subscribe((response) =>{console.log(response)})
+  }
 
-    delPoooost(){
-      this.angularservice.deletePost().subscribe((response)=>{console.log(response)})
-    }
-
-
-    
-    
 }
